@@ -17,9 +17,6 @@ st.markdown("""
         color: #E2E8F0 !important;
     }
     
-    header {visibility: hidden;} 
-    footer {visibility: hidden;}
-    
     [data-testid="stSidebar"] {
         background-color: #161B22 !important;
         border-right: 1px solid #30363D !important;
@@ -69,7 +66,7 @@ with st.sidebar:
         <div style='background-color: #161B22; border: 1px solid #30363D; border-radius: 8px; padding: 12px; font-size: 14px; color: #C9D1D9; line-height: 1.6;'>
             • <b>CORE:</b> DeepSeek-Chat<br>
             • <b>VECTOR:</b> BAAI/bge-small-zh<br>
-            • <b>DATASET:</b> 商丘师院学生手册<br>
+            • <b>DATASET:</b> 商丘师院 student_handbook<br>
             • <b>STATUS:</b> <span style='color: #39D353;'>● Connected</span>
         </div>
     """, unsafe_allow_html=True)
