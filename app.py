@@ -108,4 +108,13 @@ if user_input := st.chat_input("输入校务或政策问题进行智能检索...
     with st.chat_message("user"):
         st.markdown(user_input)
         
-    with st.chat_
+    with st.chat_message("assistant"):
+        with st.status("Thinking...", expanded=True) as status:
+            try:
+                answer = rag_chain.invoke(user_input)
+                status.update(label="Response generated from knowledge base:", state="complete", expanded=False)
+                st.markdown(answer)
+                st.session_state.messages.append({"role": "assistant", "content": answer})
+            except Exception as e:
+                status.update(label="Error occurred", state="error")
+                st.error(f"请求失败，原因: {e}")
