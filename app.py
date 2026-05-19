@@ -2,51 +2,89 @@ import streamlit as st
 from rag_engine import init_qa_chain
 
 st.set_page_config(
-    page_title="商丘师范学院 - 智能问答系统", 
-    page_icon="🎓", 
+    page_title="商丘师范学院 - SQNU RAG", 
+    page_icon="🤖", 
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 st.markdown("""
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+    html, body, [data-testid="stAppViewContainer"] {
+        font-family: 'Inter', -apple-system, sans-serif;
+        background-color: #0E1117 !important;
+        color: #E2E8F0 !important;
+    }
+    
     header {visibility: hidden;} 
     footer {visibility: hidden;}
-    .stChatFloatingInputContainer {background-color: transparent !important;}
+    
+    [data-testid="stSidebar"] {
+        background-color: #161B22 !important;
+        border-right: 1px solid #30363D !important;
+    }
+    
     div[data-testid="stChatMessage"] {
-        border-radius: 10px;
-        margin-bottom: 10px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        background-color: #1F2937 !important;
+        border: 1px solid #374151 !important;
+        border-radius: 12px !important;
+        padding: 15px !important;
+        margin-bottom: 12px !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+    }
+    
+    div[data-testid="stStatusWidget"] {
+        border: 1px solid #3B82F6 !important;
+        background-color: #1D4ED822 !important;
+        border-radius: 8px !important;
+    }
+    
+    .stButton>button {
+        background-color: #21262D !important;
+        color: #C9D1D9 !important;
+        border: 1px solid #30363D !important;
+        border-radius: 6px !important;
+        transition: all 0.2s ease;
+    }
+    .stButton>button:hover {
+        border-color: #58A6FF !important;
+        color: #58A6FF !important;
+        background-color: #30363D !important;
+    }
+    
+    .stChatFloatingInputContainer {
+        background-color: #0E1117 !important;
     }
     </style>
     """, unsafe_allow_html=True)
 
 with st.sidebar:
-    st.markdown("<h1 style='text-align: center; color: #4F8BF0;'>🎓 控制台</h1>", unsafe_allow_html=True)
-    st.markdown("---")
+    st.markdown("<h2 style='text-align: center; color: #58A6FF; font-weight: 600; letter-spacing: 1px;'>SQNU RAG ENGINE</h2>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: #8B949E; font-size: 12px; margin-top: -10px;'>校园知识库增强检索系统</p>", unsafe_allow_html=True)
+    st.markdown("<div style='border-bottom: 1px solid #30363D; margin: 15px 0;'></div>", unsafe_allow_html=True)
     
-    st.markdown("### 📋 运行状态")
-    st.info("📂 **当前知识库**：\n《商丘师范学院学生手册》")
-    st.success("🤖 **核心引擎**：\nDeepSeek-Chat (RAG增强)")
-    st.warning("📍 **适用校区**：\n睢阳校区 / 💡 文化路校区")
+    st.markdown("<p style='color: #8B949E; font-size: 13px; margin-bottom: 5px;'>📊 ENVIROMENT</p>", unsafe_allow_html=True)
+    st.markdown("""
+        <div style='background-color: #161B22; border: 1px solid #30363D; border-radius: 8px; padding: 12px; font-size: 14px; color: #C9D1D9; line-height: 1.6;'>
+            • <b>CORE:</b> DeepSeek-Chat<br>
+            • <b>VECTOR:</b> BAAI/bge-small-zh<br>
+            • <b>DATASET:</b> 商丘师院学生手册<br>
+            • <b>STATUS:</b> <span style='color: #39D353;'>● Connected</span>
+        </div>
+    """, unsafe_allow_html=True)
     
-    st.markdown("---")
-    st.markdown("### ⚙️ 系统操作")
-    if st.button("🧹 清空当前聊天历史", use_container_width=True):
+    st.markdown("<div style='margin-top: 25px;'></div>", unsafe_allow_html=True)
+    if st.button("🧹 Reset Session", use_container_width=True):
         st.session_state.messages = []
         st.rerun()
         
     st.markdown("<br><br><br><br><br><br>", unsafe_allow_html=True)
-    st.caption("<p style='text-align: center; color: gray;'>©️ 2026 商丘师范学院大作业演示</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: #484F58; font-size: 11px;'>SYSTEM VERSION V2.6.0<br>© 2026 SQNU LAB</p>", unsafe_allow_html=True)
 
-col1, col2 = st.columns([1, 10])
-with col1:
-    st.markdown("<h1 style='font-size: 50px; margin-top: -10px;'>🎓</h1>", unsafe_allow_html=True)
-with col2:
-    st.markdown("<h1 style='color: #1E3A8A; margin-top: -15px;'>商丘师范学院知识库智能问答系统</h1>", unsafe_allow_html=True)
-
-st.markdown("<p style='color: #555555; font-size: 16px; margin-top: -10px;'>基于 RAG 检索增强技术 · 数字化校园教务与政策智能查询平台</p>", unsafe_allow_html=True)
-st.markdown("---")
+st.markdown("<h1 style='color: #F0F6FC; font-weight: 600; font-size: 32px; letter-spacing: -0.5px;'>商丘师范学院知识库智能问答系统</h1>", unsafe_allow_html=True)
+st.markdown("<p style='color: #8B949E; font-size: 15px; margin-top: -8px;'>基于 RAG 架构的数字化校园政策与教务管理规定智能解构平台</p>", unsafe_allow_html=True)
+st.markdown("<div style='border-bottom: 1px solid #21262D; margin: 20px 0;'></div>", unsafe_allow_html=True)
 
 @st.cache_resource
 def load_rag_system():
@@ -65,19 +103,9 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-if user_input := st.chat_input("请输入你想咨询的商丘师院政策（例如：挂科几门取消学位？）"):
+if user_input := st.chat_input("输入校务或政策问题进行智能检索..."):
     st.session_state.messages.append({"role": "user", "content": user_input})
     with st.chat_message("user"):
         st.markdown(user_input)
         
-    with st.chat_message("assistant"):
-        with st.status("🔍 正在检索校园数据库并组织语言...", expanded=True) as status:
-            try:
-                answer = rag_chain.invoke(user_input)
-                status.update(label="✅ 检索完成！结合官方手册为您解答：", state="complete", expanded=False)
-                
-                st.markdown(answer)
-                st.session_state.messages.append({"role": "assistant", "content": answer})
-            except Exception as e:
-                status.update(label="❌ 检索失败", state="error")
-                st.error(f"请求失败，原因: {e}")
+    with st.chat_
