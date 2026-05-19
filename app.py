@@ -8,7 +8,22 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+st.markdown("""
+    <style>
+    
+    #MainMenu {visibility: hidden;}
+    
+   
+    footer {visibility: hidden;}
+    
 
+    stDeployButton {display:none;}
+    [data-testid="stStatusWidget"] {display:none !important;}
+    .st-emotion-cache-12fm60b {display:none !important;} 
+    .st-emotion-cache-6q9sum {display:none !important;}
+    header {visibility: hidden;} 
+    </style>
+    """, unsafe_allow_html=True)
 
 with st.sidebar:
     try:
