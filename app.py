@@ -3,7 +3,7 @@ from rag_engine import init_qa_chain
 
 
 st.set_page_config(
-    page_title="商丘师范学院-智能问答系统", 
+    page_title="智能问答系统", 
     page_icon="🎓", 
     layout="wide",
     initial_sidebar_state="expanded"
@@ -15,7 +15,7 @@ with st.sidebar:
     
     st.markdown("## 🎓 系统控制台")
     st.markdown("---")
-    st.info("📖 **当前数据库**：\n《商丘师范学院学生手册》")
+    st.info("📖 **当前数据库**：\n《某高校学生手册》")
     st.success("🛜 **大语言模型**：\nDeepseek-v4-flash")
     st.warning("🏫 **学校校区**：\n睢阳校区 / 梁园校区")
     
@@ -29,7 +29,7 @@ with st.sidebar:
     st.caption("©️ 2447301104 毕业设计演示")
 
 
-st.title("🎓 商丘师范学院数据库智能问答系统")
+st.title("🎓 数据库智能问答系统")
 st.subheader("基于 RAG 技术的校园政策与教务管理规定智能查询平台")
 st.markdown("---")
 
@@ -53,7 +53,7 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 
-if user_input := st.chat_input("请输入你想咨询的商丘师院政策（如：挂科几门取消学位？）"):
+if user_input := st.chat_input("请输入你想咨询的学校政策（如：挂科几门取消学位？）"):
     
    
     st.session_state.messages.append({"role": "user", "content": user_input})
