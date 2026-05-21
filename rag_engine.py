@@ -35,7 +35,7 @@ def init_qa_chain():
     from langchain_community.embeddings import HuggingFaceBgeEmbeddings
     embeddings = HuggingFaceBgeEmbeddings(model_name="BAAI/bge-small-zh-v1.5")
     vectorstore = Chroma.from_documents(documents=splits, embedding=embeddings)
-    retriever = vectorstore.as_retriever(search_kwargs={"1": 3})
+    retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
     
     
     llm = ChatOpenAI(model="deepseek-chat", temperature=0.1)
