@@ -6,11 +6,11 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
-# 1. 基础环境配置
+
 os.environ["OPENAI_API_KEY"] = "sk-267e9a64cda14959b2a1d74949a92043"
 os.environ["OPENAI_API_BASE"] = "https://api.deepseek.com/v1"
 
-# 声明全局组件
+
 _global_retriever = None
 _global_llm_strict = None
 _global_llm_casual = None
@@ -23,10 +23,7 @@ def format_docs(docs):
 
 
 class DualEngineManager:
-    """
-    【绝对分流控制器】
-    拒绝模糊匹配！用最严格的字符串判定，确保默认100%锁死高校数据库。
-    """
+   
     def invoke(self, user_input: str, mode: str) -> str:
         global _global_retriever, _global_llm_strict, _global_llm_casual, _global_strict_prompt, _global_casual_prompt
         
@@ -52,7 +49,7 @@ def init_qa_chain():
     """系统初始化"""
     global _global_retriever, _global_llm_strict, _global_llm_casual, _global_strict_prompt, _global_casual_prompt
     
-    # 初始化高校数据库 (RAG)
+    
     pdf_path = "data/shangqiu_handbook.txt"
     if os.path.exists(pdf_path):
         loader = TextLoader(pdf_path, encoding="utf-8")
@@ -70,7 +67,7 @@ def init_qa_chain():
     
     strict_system_prompt = (
         "你是一个高校智能助理。请严格根据以下学校官方文件的内容回答学生的问题。\n"
-        "请用条理清晰的要点形式回答。如果参考内容中没有提到相关信息，请礼貌地回答：'抱歉，在学校公开的知识库中未查询到相关政策信息，建议同学详细咨询所属二级学院的辅导员老师。'\n\n"
+        "请用条理清晰的要点形式回答。如果参考内容中没有提到相关信息，请礼貌地回答：'抱歉，在学校公开的知识库中未查询到相关政策信息，建议同学详细咨询辅导员老师。'\n\n"
         "【学校官方文件参考内容】:\n{context}"
     )
     _global_strict_prompt = ChatPromptTemplate.from_messages([
@@ -78,11 +75,11 @@ def init_qa_chain():
         ("human", "{input}"),
     ])
     
-    # 初始化日常闲聊模型
+  
     _global_llm_casual = ChatOpenAI(model="deepseek-chat", temperature=0.7)
     casual_system_prompt = (
         "你是一个由 DeepSeek 驱动的全能超级人工智能助手，现在化身为学生们的伙伴，你的回答沉稳认真，有温度并且幽默风趣。\n"
-        "当前用户在与你进行日常沟通，你可以帮他们解答日常常识（如苹果西瓜哪个大）、写代码、日常吐槽等。\n"
+        "当前用户在与你进行日常沟通，你可以帮他们解答日常常识、写代码、日常吐槽等。\n"
         "此时【完全脱离学校手册的限制】，你可以调用你作为通用人工智能的一切智慧直接回答！不要说‘抱歉未查到’这种死板的话。"
     )
     _global_casual_prompt = ChatPromptTemplate.from_messages([
