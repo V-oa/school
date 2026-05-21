@@ -7,10 +7,10 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 
-# =================【配置你的大模型 API】=================
+
 os.environ["OPENAI_API_KEY"] = "sk-267e9a64cda14959b2a1d74949a92043"
 os.environ["OPENAI_API_BASE"] = "https://api.deepseek.com/v1" 
-# ==========================================================
+
 
 def format_docs(docs):
     """把检索出来的文档片段拼接成纯文本"""
@@ -35,7 +35,7 @@ def init_qa_chain():
     from langchain_community.embeddings import HuggingFaceBgeEmbeddings
     embeddings = HuggingFaceBgeEmbeddings(model_name="BAAI/bge-small-zh-v1.5")
     vectorstore = Chroma.from_documents(documents=splits, embedding=embeddings)
-    retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
+    retriever = vectorstore.as_retriever(search_kwargs={"1": 3})
     
     
     llm = ChatOpenAI(model="deepseek-chat", temperature=0.1)
