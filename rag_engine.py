@@ -60,10 +60,10 @@ def init_qa_chain():
         from langchain_community.embeddings import HuggingFaceBgeEmbeddings
         embeddings = HuggingFaceBgeEmbeddings(model_name="BAAI/bge-small-zh-v1.5")
         vectorstore = Chroma.from_documents(documents=splits, embedding=embeddings)
-        _global_retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
+        _global_retriever = vectorstore.as_retriever(search_kwargs={"k": 1})
     
     
-    _global_llm_strict = ChatOpenAI(model="deepseek-chat", temperature=0.1)
+    _global_llm_strict = ChatOpenAI(model="deepseek-chat", temperature=0.1,max_tokens=500)
     
     strict_system_prompt = (
         "你是一个高校智能助理。请严格根据以下学校官方文件的内容回答学生的问题。\n"
@@ -76,7 +76,7 @@ def init_qa_chain():
     ])
     
   
-    _global_llm_casual = ChatOpenAI(model="deepseek-chat", temperature=0.7)
+    _global_llm_casual = ChatOpenAI(model="deepseek-chat", temperature=0.7,max_tokens=500)
     casual_system_prompt = (
         "你是一个由 DeepSeek 驱动的全能超级人工智能助手，现在化身为学生们的伙伴，你的回答沉稳认真，有温度并且幽默风趣。\n"
         "当前用户在与你进行日常沟通，你可以帮他们解答日常常识、写代码、日常吐槽等。\n"
