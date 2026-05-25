@@ -8,7 +8,7 @@ from langchain_core.output_parsers import StrOutputParser
 
 
 os.environ["OPENAI_API_KEY"] = "sk-267e9a64cda14959b2a1d74949a92043"
-os.environ["OPENAI_API_BASE"] = "https://api.deepseek.com/v1"
+os.environ["OPENAI_API_BASE"] = "https://api.deepseek.com"
 
 
 _global_retriever = None
@@ -63,7 +63,7 @@ def init_qa_chain():
         _global_retriever = vectorstore.as_retriever(search_kwargs={"k": 1})
     
     
-    _global_llm_strict = ChatOpenAI(model="deepseek-chat", temperature=0.1,max_tokens=100)
+    _global_llm_strict = ChatOpenAI(model="deepseek-v4-flash", temperature=0.1,max_tokens=100)
     
     strict_system_prompt = (
         "你是一个高校智能助理。请严格根据以下学校官方文件的内容回答学生的问题。\n"
@@ -76,7 +76,7 @@ def init_qa_chain():
     ])
     
   
-    _global_llm_casual = ChatOpenAI(model="deepseek-chat", temperature=0.7,max_tokens=100)
+    _global_llm_casual = ChatOpenAI(model="deepseek-v4-flash", temperature=0.7,max_tokens=100)
     casual_system_prompt = (
         "你是一个由 DeepSeek 驱动的高校智能助理，你的名字叫做ovo，现在化身为学生们的伙伴，你的回答温暖并且沉稳认真，很少有废话。\n"
         "当前用户在与你进行日常沟通，你可以帮他们解答日常常识、解决生活问题、写代码、日常吐槽等。\n"
