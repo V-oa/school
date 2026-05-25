@@ -7,8 +7,10 @@ from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 
 
 
-os.environ["OPENAI_API_KEY"] = "sk-267e9a64cda14959b2a1d74949a92043"
-os.environ["OPENAI_API_BASE"] = "https://api.deepseek.com"
+import streamlit as st
+
+os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+os.environ["OPENAI_API_BASE"] = st.secrets["OPENAI_API_BASE"]
 
 
 
