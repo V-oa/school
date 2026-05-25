@@ -37,7 +37,7 @@ with st.sidebar:
     else:
         st.info("📖 **当前状态**：日常全能 AI \n(适合常识回答、日常闲聊)")
         
-    st.warning("🛜 **推理模型**：\nDeepSeek-v4-pro")
+    st.warning("🛜 **推理模型**：\nDeepSeek-v4-flash")
     st.markdown("---")
    
     if st.button("❌ 清空当前聊天历史", use_container_width=True):
@@ -82,7 +82,7 @@ if user_input := st.chat_input(placeholder_tips):
                
                 answer = dual_engine.invoke(user_input, mode=system_mode)
                 st.markdown(answer)
-                st.toast(f"已通过 {system_mode} 渲染输出。", icon="✅")
+                st.toast(f"已通过 {system_mode} 检索输出。", icon="✅")
                 st.session_state.messages.append({"role": "assistant", "content": answer})
             except Exception as e:
                 st.error(f"⚠️ 系统在处理您的请求时出现异常: {e}")
